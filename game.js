@@ -1,0 +1,14 @@
+(()=>{
+  const canvas=document.getElementById('game-canvas'),ctx=canvas.getContext('2d'),scoreEl=document.getElementById('score'),statusEl=document.getElementById('game-status');
+  const cols=30,rows=18,size=20;let snake,food,enemy,direction,nextDirection,score,tickTimer,enemyTimer,enemyMoveTimer;
+  const randomCell=()=>({x:Math.floor(Math.random()*cols),y:Math.floor(Math.random()*rows)});const same=(a,b)=>a.x===b.x&&a.y===b.y;
+  function placeFood(){do{food=randomCell()}while(snake.some(s=>same(s,food)))}
+  function placeEnemy(){do{enemy={...randomCell(),active:true,dx:Math.random()<.5?1:-1,dy:Math.random()<.5?1:-1}}while(snake.some(s=>same(s,enemy)))}
+  function draw(){ctx.fillStyle='#0f131b';ctx.fillRect(0,0,canvas.width,canvas.height);snake.forEach((s,i)=>{ctx.fillStyle=i?'#67c94e':'#d7ff9b';ctx.fillRect(s.x*size+2,s.y*size+2,size-4,size-4)});ctx.fillStyle='#6de1ff';ctx.fillRect(food.x*size+5,food.y*size+5,size-10,size-10);if(enemy?.active){ctx.fillStyle='#ff6b8b';ctx.beginPath();ctx.arc(enemy.x*size+10,enemy.y*size+10,8,0,Math.PI*2);ctx.fill()}}
+  function step(){direction=nextDirection;const head={x:(snake[0].x+direction.x+cols)%cols,y:(snake[0].y+direction.y+rows)%rows};if(snake.some(s=>same(s,head))){statusEl.textContent='게임 오버 — 다시 시작해보세요.';clearInterval(tickTimer);return}snake.unshift(head);if(same(head,food)){score++;scoreEl.textContent=score;placeFood()}else snake.pop();if(enemy?.active&&same(head,enemy)){statusEl.textContent='적과 충돌했습니다. 다시 시작해보세요.';clearInterval(tickTimer);return}draw()}
+  function moveEnemy(){if(!enemy?.active)return;enemy.x+=enemy.dx;enemy.y+=enemy.dy;if(enemy.x<0||enemy.x>=cols)enemy.dx*=-1;if(enemy.y<0||enemy.y>=rows)enemy.dy*=-1;draw()}
+  function explodeAndRespawn(){if(!enemy?.active)return;enemy.active=false;draw();setTimeout(()=>{placeEnemy();enemy.active=true;draw()},4000)}
+  function start(){clearInterval(tickTimer);clearInterval(enemyTimer);clearInterval(enemyMoveTimer);snake=[{x:7,y:9},{x:6,y:9},{x:5,y:9}];direction={x:1,y:0};nextDirection={x:1,y:0};score=0;scoreEl.textContent=score;statusEl.textContent='플레이 중 — 적을 조심하세요.';placeFood();placeEnemy();draw();tickTimer=setInterval(step,150);enemyMoveTimer=setInterval(moveEnemy,420);enemyTimer=setInterval(explodeAndRespawn,4000)}
+  window.addEventListener('keydown',(e)=>{const map={ArrowUp:{x:0,y:-1},ArrowDown:{x:0,y:1},ArrowLeft:{x:-1,y:0},ArrowRight:{x:1,y:0}};if(map[e.key]){e.preventDefault();const d=map[e.key];if(d.x!==-direction.x||d.y!==-direction.y)nextDirection=d}});
+  window.snakeGame={start,setDirection:(key)=>{const d={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}}[key];if(d&&(d.x!==-direction.x||d.y!==-direction.y))nextDirection=d}};start();
+})();

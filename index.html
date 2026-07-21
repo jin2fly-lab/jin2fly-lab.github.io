@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="삼성전자 소속 개발자의 개인 전문 웹사이트">
+  <title>개인 전문 웹사이트</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="홈으로 이동">JIN2FLY</a>
+    <nav aria-label="주요 메뉴">
+      <a href="#about">소개</a>
+      <a href="#skills">기술</a>
+      <a href="#games">Games</a>
+      <a href="#contact">연락처</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero section-wrap">
+      <p class="eyebrow">PROFESSIONAL PROFILE</p>
+      <h1>아이디어를<br><span>경험으로 만듭니다.</span></h1>
+      <p class="hero-copy">삼성전자에서 문제를 구조화하고, 사용자에게 닿는 디지털 경험을 설계합니다.</p>
+      <a class="button" href="#games">게임 즐기기 <span aria-hidden="true">→</span></a>
+    </section>
+
+    <section id="about" class="section-wrap split-section">
+      <div><p class="eyebrow">ABOUT</p><h2>정확함과 호기심<br>사이에서.</h2></div>
+      <div class="body-copy"><p>새로운 기술을 배우고 복잡한 문제를 단순한 흐름으로 바꾸는 일을 좋아합니다.</p><p>현재 삼성전자에 소속되어 있습니다.</p><p class="muted">프로젝트와 성과 세부 내용은 비공개입니다.</p></div>
+    </section>
+
+    <section id="skills" class="section-wrap">
+      <p class="eyebrow">CAPABILITIES</p><h2>일하는 방식</h2>
+      <div class="cards"><article><b>01</b><h3>구조화</h3><p>복잡한 요구사항을 명확한 사용자 흐름으로 정리합니다.</p></article><article><b>02</b><h3>구현</h3><p>가볍고 오래 유지되는 정적 웹 경험을 만듭니다.</p></article><article><b>03</b><h3>개선</h3><p>관찰하고 검증하며 더 나은 결과를 반복해서 찾습니다.</p></article></div>
+    </section>
+
+    <section id="games" class="section-wrap game-section">
+      <div class="game-heading"><div><p class="eyebrow">GAMES</p><h2>잠깐의 플레이</h2></div><p id="game-status" role="status">방향키 또는 아래 버튼으로 시작하세요.</p></div>
+      <div class="game-shell"><canvas id="game-canvas" width="600" height="360" aria-label="지렁이 게임"></canvas><div class="game-meta"><span>점수 <strong id="score">0</strong></span><span>적은 4초마다 폭발·재생성됩니다.</span></div><div class="touch-controls" aria-label="터치 조작"><button data-direction="up">↑</button><div><button data-direction="left">←</button><button data-direction="down">↓</button><button data-direction="right">→</button></div></div><button id="restart" class="button secondary">다시 시작</button></div>
+    </section>
+
+    <section id="contact" class="section-wrap contact"><p class="eyebrow">CONTACT</p><h2>함께 만들고 싶다면</h2><p class="body-copy">공개 가능한 연락처와 프로젝트 정보는 추후 업데이트됩니다.</p></section>
+  </main>
+  <footer><span>© 2026 JIN2FLY</span><span>Samsung Electronics</span></footer>
+  <script src="game.js"></script><script src="script.js"></script>
+</body>
+</html>
